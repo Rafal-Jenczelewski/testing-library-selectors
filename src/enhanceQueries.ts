@@ -7,61 +7,40 @@ type DefinitionBase = QueryDefinitionBase<SupportedFilters, unknown, unknown>;
 export function enhanceQueries<Q extends BoundFunctions<typeof dtlQueries>>(
     queries: Q
 ) {
+    function createSyncApi<R>(api: string) {
+        return (definition: DefinitionBase) => {
+            // @ts-ignore
+            const result = queries[`${api}By${capitalize(definition.filter)}`](
+                definition.matcher,
+                definition.options
+            );
+            return result as R;
+        };
+    }
+
+    function createAsyncApi<R>(api: string) {
+        return (
+            definition: DefinitionBase,
+            waitForOptions?: waitForOptions
+        ) => {
+            // @ts-ignore
+            const result = queries[`${api}By${capitalize(definition.filter)}`](
+                definition.matcher,
+                definition.options,
+                waitForOptions
+            );
+            return result as Promise<R>;
+        };
+    }
+
     return {
         ...queries,
-        get: (definition: DefinitionBase): HTMLElement => {
-            // @ts-ignore
-            const result = queries['getBy' + capitalize(definition.filter)](
-                definition.matcher,
-                definition.options
-            );
-            return result as HTMLElement;
-        },
-        getAll: (definition: DefinitionBase): HTMLElement[] => {
-            // @ts-ignore
-            const result = queries['getAllBy' + capitalize(definition.filter)](
-                definition.matcher,
-                definition.options
-            );
-            return result as HTMLElement[];
-        },
-        find: async (
-            definition: DefinitionBase,
-            waitForOptions?: waitForOptions
-        ): Promise<HTMLElement> => {
-            // @ts-ignore
-            const result = await queries[
-                'findBy' + capitalize(definition.filter)
-            ](definition.matcher, definition.options, waitForOptions);
-            return result as HTMLElement;
-        },
-        findAll: async (
-            definition: DefinitionBase,
-            waitForOptions?: waitForOptions
-        ): Promise<HTMLElement[]> => {
-            // @ts-ignore
-            const result = await queries[
-                'findAllBy' + capitalize(definition.filter)
-            ](definition.matcher, definition.options, waitForOptions);
-            return result as HTMLElement[];
-        },
-        query: (definition: DefinitionBase): HTMLElement | null => {
-            const methodToCall = 'queryBy' + capitalize(definition.filter);
-            console.log(methodToCall);
-            // @ts-ignore
-            const result = queries[methodToCall](
-                definition.matcher,
-                definition.options
-            );
-            return result as HTMLElement | null;
-        },
-        queryAll: (definition: DefinitionBase): HTMLElement[] => {
-            // @ts-ignore
-            const result = queries[
-                'queryAllBy' + capitalize(definition.filter)
-            ](definition.matcher, definition.options);
-            return result as HTMLElement[];
-        },
+        get: createSyncApi<HTMLElement>('get'),
+        getAll: createSyncApi<HTMLElement[]>('getAll'),
+        query: createSyncApi<HTMLElement | null>('query'),
+        queryAll: createSyncApi<HTMLElement[]>('queryAll'),
+        find: createAsyncApi<HTMLElement>('find'),
+        findAll: createAsyncApi<HTMLElement[]>('findAll'),
     };
 }
 
