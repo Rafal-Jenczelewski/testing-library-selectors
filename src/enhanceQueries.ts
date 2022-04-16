@@ -1,12 +1,9 @@
 import type { BoundFunctions, waitForOptions } from '@testing-library/dom';
-import { queries as dtlQueries } from '@testing-library/dom';
 import { QueryDefinitionBase, SupportedFilters } from './selectors';
 
 type DefinitionBase = QueryDefinitionBase<SupportedFilters, unknown, unknown>;
 
-export function enhanceQueries<Q extends BoundFunctions<typeof dtlQueries>>(
-    queries: Q
-) {
+export function enhanceQueries<Q extends BoundFunctions<unknown>>(queries: Q) {
     function createSyncApi<R>(api: string) {
         return (definition: DefinitionBase) => {
             // @ts-ignore

@@ -9,6 +9,7 @@ import {
     byText,
     byTitle,
     screen,
+    within,
 } from './index';
 import { enhanceQueries } from './enhanceQueries';
 
@@ -283,6 +284,20 @@ test('options are passed and proper functions are called', async () => {
         ...expectedParameters,
         waitForOptions
     );
+});
+
+test('within works', () => {
+    render(`<nav>
+        ${generateInput()}
+    </nav>`);
+
+    const input = document.getElementById('input');
+
+    expect(
+        within(screen.get(byRole('navigation'))).get(
+            byPlaceholderText('PLACEHOLDER')
+        )
+    ).toEqual(input);
 });
 
 const generateSpan = (id = 'span') => `<span id=${id}>TEXT</span>`;

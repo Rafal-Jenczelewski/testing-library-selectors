@@ -1,7 +1,8 @@
-import { screen as dtlScreen } from '@testing-library/dom';
+import { screen as dtlScreen, within as dtlWithin } from '@testing-library/dom';
 import { enhanceQueries } from './enhanceQueries';
 
 const screen = enhanceQueries(dtlScreen);
+const within = (element: HTMLElement) => enhanceQueries(dtlWithin(element));
 
 export {
     byAltText,
@@ -14,4 +15,4 @@ export {
     byTitle,
 } from './selectors';
 
-export { screen };
+export { screen, within };
