@@ -40,7 +40,7 @@ jobs:
         with:
           token: ${{ secrets.NPM_AUTH_TOKEN }}
       - if: steps.publish.outputs.type != 'none'
-      - name: Create release if version has been updated
+        name: Create release if version has been updated
         uses: rymndhng/release-on-push-action@master
         with:
           bump_version_scheme: ${{ steps.publish.outputs.type }}
