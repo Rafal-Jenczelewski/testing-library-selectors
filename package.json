@@ -1,7 +1,7 @@
 {
   "name": "testing-library-selectors",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.1.0",
   "scripts": {
     "build": "tsc --noEmit && vite build",
     "generate:declaration": "tsc --emitDeclarationOnly",
