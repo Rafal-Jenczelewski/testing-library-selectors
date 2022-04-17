@@ -15,6 +15,9 @@
   ],
   "main": "dist/testing-library-selectors.umd.js",
   "module": "dist/testing-library-selectors.es.js",
+  "repository": {
+    "url": "https://github.com/Rafal-Jenczelewski/testing-library-selectors"
+  },
   "type": "module",
   "devDependencies": {
     "@testing-library/dom": "^8.13.0",
