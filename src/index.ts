@@ -15,4 +15,11 @@ export {
     byTitle,
 } from './selectors';
 
+export type {
+    SupportedFilters,
+    ByRoleSelector,
+    SimpleQueryDefinition,
+    QueryDefinition,
+} from './selectors';
+
 export { screen, within };
