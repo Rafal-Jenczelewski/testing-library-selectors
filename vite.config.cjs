@@ -6,7 +6,7 @@ import path from 'path';
 const config = {
     build: {
         lib: {
-            entry: path.resolve(__dirname, 'lib/index.js'),
+            entry: path.resolve(__dirname, 'src/index.ts'),
             name: 'testing-library-selectors',
             fileName: (format) => `testing-library-selectors.${format}.js`,
         },

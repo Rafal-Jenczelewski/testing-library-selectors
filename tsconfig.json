@@ -10,12 +10,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "noEmit": true,
+    "declaration": true,
+    "declarationDir": "dist",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "types": [
-      "vite/client",
+      "vite/client"
     ]
   },
   "include": [

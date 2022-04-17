@@ -3,15 +3,24 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "tsc --noEmit && vite build",
+    "generate:declaration": "tsc --emitDeclarationOnly",
     "test": "vitest",
-    "test:watch": "vitest -w"
+    "test:watch": "vitest -w",
+    "test:coverage": "vitest run --coverage"
   },
+  "types": "dist",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/testing-library-selectors.umd.js",
+  "module": "dist/testing-library-selectors.es.js",
   "type": "module",
   "devDependencies": {
     "@testing-library/dom": "^8.13.0",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
+    "c8": "^7.11.0",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
     "happy-dom": "^2.55.0",
