@@ -1,6 +1,6 @@
 {
   "name": "testing-library-selectors",
-  "private": true,
+  "private": false,
   "version": "0.0.1",
   "scripts": {
     "build": "tsc --noEmit && vite build",
