@@ -45,4 +45,3 @@ jobs:
         with:
           bump_version_scheme: ${{ steps.publish.outputs.type }}
           release_name: "Release ${{ steps.publish.outputs.version }}"
-          release_version: "Version ${{ steps.publish.outputs.version }}"
