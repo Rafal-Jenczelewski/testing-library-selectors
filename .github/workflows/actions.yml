@@ -39,7 +39,7 @@ jobs:
 
   tag-on-publish:
     needs: publish
-    if: steps.publish.outputs.type != 'none'
+    if: ${{ steps.publish.outputs.type != 'none' }}
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
