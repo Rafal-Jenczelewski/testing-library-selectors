@@ -15,6 +15,7 @@ export type SupportedFilters =
     | 'displayValue'
     | 'testId';
 
+type InsideOptions = { insideOf?: HTMLElement | QueryDefinition | null };
 export type QueryDefinitionBase<
     Filter extends SupportedFilters,
     Matcher,
@@ -22,8 +23,14 @@ export type QueryDefinitionBase<
 > = {
     filter: Filter;
     matcher: Matcher;
-    options?: Options;
+    options?: Options & InsideOptions;
 };
+
+export type QueryDefinition = QueryDefinitionBase<
+    SupportedFilters,
+    unknown,
+    unknown
+>;
 
 export type SimpleQueryDefinition = QueryDefinitionBase<
     SupportedFilters,
@@ -39,7 +46,7 @@ export type ByRoleSelector = QueryDefinitionBase<
 function createSimpleSelector(filter: SupportedFilters) {
     return (
         matcher: Matcher,
-        options?: SelectorMatcherOptions
+        options?: SelectorMatcherOptions & InsideOptions
     ): SimpleQueryDefinition => ({
         filter,
         matcher,
@@ -56,7 +63,7 @@ export const byDisplayValue = createSimpleSelector('displayValue');
 export const byTestId = createSimpleSelector('testId');
 export const byRole = (
     matcher: ByRoleMatcher,
-    options?: ByRoleOptions
+    options?: ByRoleOptions & InsideOptions
 ): ByRoleSelector => ({
     filter: 'role',
     matcher,

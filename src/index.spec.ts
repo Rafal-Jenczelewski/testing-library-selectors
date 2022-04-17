@@ -300,6 +300,73 @@ test('within works', () => {
     ).toEqual(input);
 });
 
+test('inside api works', async () => {
+    render(`
+        <div>
+            <nav>
+                ${generateInput()}
+                ${generateSpan()}
+            </nav>
+            ${generateInput('outside-input')}
+        </div>
+    `);
+
+    const input = document.getElementById('input');
+
+    expect(
+        screen.get(
+            byRole('searchbox', { insideOf: document.querySelector('nav') })
+        )
+    ).toEqual(input);
+    expect(
+        screen.get(byRole('searchbox', { insideOf: byRole('navigation') }))
+    ).toEqual(input);
+    expect(
+        screen.getAll(byRole('searchbox', { insideOf: byRole('navigation') }))
+    ).toEqual([input]);
+
+    expect(() =>
+        screen.get(byRole('alert', { insideOf: byRole('alert') }))
+    ).toThrow();
+
+    expect(() => screen.get(byText('TEXT', { insideOf: null }))).toThrow();
+
+    expect(
+        await screen.find(
+            byRole('searchbox', { insideOf: byRole('navigation') })
+        )
+    ).toEqual(input);
+    expect(
+        await screen.findAll(
+            byRole('searchbox', { insideOf: byRole('navigation') })
+        )
+    ).toEqual([input]);
+});
+
+test('nested inside works', () => {
+    render(`
+        <div>
+            ${generateSpan('span1')}
+            <nav>
+                <h2>
+                    ${generateSpan()}
+                </h2>
+                ${generateSpan('span2')}
+            </nav>
+        </div>
+    `);
+
+    const expectedSpan = document.getElementById('span');
+
+    expect(
+        screen.get(
+            byText('TEXT', {
+                insideOf: byRole('heading', { insideOf: byRole('navigation') }),
+            })
+        )
+    ).toEqual(expectedSpan);
+});
+
 const generateSpan = (id = 'span') => `<span id=${id}>TEXT</span>`;
 const generateInput = (id = 'input') =>
     `<input id=${id} data-testid="TEST-ID" placeholder="PLACEHOLDER" value="VALUE" title="TITLE"/>`;
