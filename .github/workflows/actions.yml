@@ -23,6 +23,8 @@ jobs:
   publish:
     needs: test
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -37,15 +39,8 @@ jobs:
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_AUTH_TOKEN }}
-
-  tag-on-publish:
-    needs: publish
-    if: ${{ steps.publish.outputs.type != 'none' }}
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - name: Create tag if published
+      - if: steps.publish.outputs.type != 'none'
+      - name: Create release if version has been updated
         uses: rymndhng/release-on-push-action@master
         with:
           bump_version_scheme: ${{ steps.publish.outputs.type }}
