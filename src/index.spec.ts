@@ -30,12 +30,14 @@ test('get works with all selectors', () => {
             ${generateInput()}
             ${generateLabel()}
             ${generateImg()}
+            ${generateSpanWithAttr()}
         </div>
     `);
 
     const span = document.getElementById('span');
     const input = document.getElementById('input');
     const img = document.getElementById('img');
+    const spanWithAttr = document.querySelector('[custom-attr="value"]');
 
     expect(screen.get(byRole('searchbox'))).toEqual(input);
     expect(screen.get(byText('TEXT'))).toEqual(span);
@@ -45,6 +47,7 @@ test('get works with all selectors', () => {
     expect(screen.get(byTitle('TITLE'))).toEqual(input);
     expect(screen.get(byLabelText('LABEL'))).toEqual(input);
     expect(screen.get(byAltText('ALT'))).toEqual(img);
+    expect(screen.get(bySelector('[custom-attr="value"]'))).toEqual(spanWithAttr);
 
     expect(() => screen.get(byRole(invalidSelector))).toThrow();
     expect(() => screen.get(byText(invalidSelector))).toThrow();
@@ -54,6 +57,7 @@ test('get works with all selectors', () => {
     expect(() => screen.get(byTitle(invalidSelector))).toThrow();
     expect(() => screen.get(byLabelText(invalidSelector))).toThrow();
     expect(() => screen.get(byAltText(invalidSelector))).toThrow();
+    expect(() => screen.get(bySelector(invalidSelector))).toThrow();
 });
 
 test('getAll works with all selectors', () => {
@@ -67,12 +71,15 @@ test('getAll works with all selectors', () => {
             ${generateSpan()}
             ${generateImg()}
             ${generateImg()}
+            ${generateSpanWithAttr()}
+            ${generateSpanWithAttr()}
         </div>
     `);
 
     const inputs = document.querySelectorAll('input');
     const spans = document.querySelectorAll('span');
-    const imgs = document.querySelectorAll('img');
+    const imgs = document.querySelecto
+    const spansWithAttr = document.querySelectorAll('[custom-attr="value"]');
 
     expect(screen.getAll(byRole('searchbox'))).toEqual(inputs);
     expect(screen.getAll(byText('TEXT'))).toEqual(spans);
@@ -82,6 +89,7 @@ test('getAll works with all selectors', () => {
     expect(screen.getAll(byTitle('TITLE'))).toEqual(inputs);
     expect(screen.getAll(byLabelText('LABEL'))).toEqual(inputs);
     expect(screen.getAll(byAltText('ALT'))).toEqual(imgs);
+    expect(screen.getAll(bySelector('[custom-attr="value"'))).toEqual(spansWithAttr);
 
     expect(() => screen.getAll(byRole(invalidSelector))).toThrow();
     expect(() => screen.getAll(byText(invalidSelector))).toThrow();
@@ -91,6 +99,7 @@ test('getAll works with all selectors', () => {
     expect(() => screen.getAll(byTitle(invalidSelector))).toThrow();
     expect(() => screen.getAll(byLabelText(invalidSelector))).toThrow();
     expect(() => screen.getAll(byAltText(invalidSelector))).toThrow();
+    expect(() => screen.getAll(bySelector(invalidSelector))).toThrow();
 });
 
 test('query works with all selectors', () => {
@@ -100,12 +109,14 @@ test('query works with all selectors', () => {
             ${generateInput()}
             ${generateLabel()}
             ${generateImg()}
+            ${generateSpanWithAttr()}
         </div>
     `);
 
     const span = document.getElementById('span');
     const input = document.getElementById('input');
     const img = document.getElementById('img');
+    const spanWithAttr = document.querySelector('[custom-attr="value"]');
 
     expect(screen.query(byRole('searchbox'))).toEqual(input);
     expect(screen.query(byText('TEXT'))).toEqual(span);
@@ -115,6 +126,7 @@ test('query works with all selectors', () => {
     expect(screen.query(byTitle('TITLE'))).toEqual(input);
     expect(screen.query(byLabelText('LABEL'))).toEqual(input);
     expect(screen.query(byAltText('ALT'))).toEqual(img);
+    expect(screen.query(bySelector('[custom-attr="value"]'))).toEqual(spanWithAttr);
 
     expect(screen.query(byRole(invalidSelector))).toEqual(null);
     expect(screen.query(byText(invalidSelector))).toEqual(null);
@@ -124,6 +136,7 @@ test('query works with all selectors', () => {
     expect(screen.query(byTitle(invalidSelector))).toEqual(null);
     expect(screen.query(byLabelText(invalidSelector))).toEqual(null);
     expect(screen.query(byAltText(invalidSelector))).toEqual(null);
+    expect(screen.query(bySelector(invalidSelector))).toEqual(null);
 });
 
 test('queryAll works with all selectors', () => {
@@ -143,6 +156,7 @@ test('queryAll works with all selectors', () => {
     const inputs = document.querySelectorAll('input');
     const spans = document.querySelectorAll('span');
     const imgs = document.querySelectorAll('img');
+    const spansWithAttr = document.querySelectorAll('[custom-attr="value"]');
 
     expect(screen.queryAll(byRole('searchbox'))).toEqual(inputs);
     expect(screen.queryAll(byText('TEXT'))).toEqual(spans);
@@ -152,6 +166,7 @@ test('queryAll works with all selectors', () => {
     expect(screen.queryAll(byTitle('TITLE'))).toEqual(inputs);
     expect(screen.queryAll(byLabelText('LABEL'))).toEqual(inputs);
     expect(screen.queryAll(byAltText('ALT'))).toEqual(imgs);
+    expect(screen.queryAll(bySelector('[custom-attr="value"]'))).toEqual(spansWithAttr);
 
     expect(screen.queryAll(byRole(invalidSelector))).toEqual([]);
     expect(screen.queryAll(byText(invalidSelector))).toEqual([]);
@@ -161,6 +176,7 @@ test('queryAll works with all selectors', () => {
     expect(screen.queryAll(byTitle(invalidSelector))).toEqual([]);
     expect(screen.queryAll(byLabelText(invalidSelector))).toEqual([]);
     expect(screen.queryAll(byAltText(invalidSelector))).toEqual([]);
+    expect(screen.queryAll(bySelector(invalidSelector))).toEqual([]);
 });
 
 test('find works with all selectors', async () => {
@@ -170,12 +186,14 @@ test('find works with all selectors', async () => {
             ${generateInput()}
             ${generateLabel()}
             ${generateImg()}
+            ${generateSpanWithAttr()}
         </div>
     `);
 
     const span = document.getElementById('span');
     const input = document.getElementById('input');
     const img = document.getElementById('img');
+    const spanWithAttr = document.querySelector('[custom-attr="value"]');
 
     expect(await screen.find(byRole('searchbox'))).toEqual(input);
     expect(await screen.find(byText('TEXT'))).toEqual(span);
@@ -185,6 +203,7 @@ test('find works with all selectors', async () => {
     expect(await screen.find(byTitle('TITLE'))).toEqual(input);
     expect(await screen.find(byLabelText('LABEL'))).toEqual(input);
     expect(await screen.find(byAltText('ALT'))).toEqual(img);
+    expect(await screen.find(bySelector('[custom-attr="value"]'))).toEqual(spanWithAttr);
 
     expect(screen.find(byRole(invalidSelector))).rejects.toThrow();
     expect(screen.find(byText(invalidSelector))).rejects.toThrow();
@@ -194,6 +213,7 @@ test('find works with all selectors', async () => {
     expect(screen.find(byTitle(invalidSelector))).rejects.toThrow();
     expect(screen.find(byLabelText(invalidSelector))).rejects.toThrow();
     expect(screen.find(byAltText(invalidSelector))).rejects.toThrow();
+    expect(screen.find(bySelector(invalidSelector))).rejects.toThrow();
 });
 
 test('findAll works with all selectors', async () => {
@@ -207,12 +227,15 @@ test('findAll works with all selectors', async () => {
             ${generateSpan()}
             ${generateImg()}
             ${generateImg()}
+            ${generateSpanWithAttr()}
+            ${generateSpanWithAttr()}
         </div>
     `);
 
     const inputs = document.querySelectorAll('input');
     const spans = document.querySelectorAll('span');
     const imgs = document.querySelectorAll('img');
+    const spansWithAttr = document.querySelectorAll('[custom-attr="value"]');
 
     expect(await screen.findAll(byRole('searchbox'))).toEqual(inputs);
     expect(await screen.findAll(byText('TEXT'))).toEqual(spans);
@@ -224,6 +247,7 @@ test('findAll works with all selectors', async () => {
     expect(await screen.findAll(byTitle('TITLE'))).toEqual(inputs);
     expect(await screen.findAll(byLabelText('LABEL'))).toEqual(inputs);
     expect(await screen.findAll(byAltText('ALT'))).toEqual(imgs);
+    expect(await screen.findAll(bySelector('[custom-attr="value"]'))).toEqual(spansWithAttr);
 
     expect(screen.findAll(byRole(invalidSelector))).rejects.toThrow();
     expect(screen.findAll(byText(invalidSelector))).rejects.toThrow();
@@ -235,6 +259,7 @@ test('findAll works with all selectors', async () => {
     expect(screen.findAll(byTitle(invalidSelector))).rejects.toThrow();
     expect(screen.findAll(byLabelText(invalidSelector))).rejects.toThrow();
     expect(screen.findAll(byAltText(invalidSelector))).rejects.toThrow();
+    expect(screen.findAll(bySelector(invalidSelector))).rejects.toThrow();
 });
 
 test('options are passed and proper functions are called', async () => {
@@ -373,3 +398,4 @@ const generateInput = (id = 'input') =>
 const generateLabel = (htmlFor = 'input') =>
     `<label for=${htmlFor}>LABEL</label>`;
 const generateImg = (id = 'img') => `<img id=${id} alt="ALT">`;
+const generateSpanWithAttr = (attr = 'custom-attr', value='value') => `<span ${attr}='${value}' />`

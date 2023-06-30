@@ -13,7 +13,8 @@ export type SupportedFilters =
     | 'altText'
     | 'title'
     | 'displayValue'
-    | 'testId';
+    | 'testId'
+    | 'selector';
 
 type InsideOptions = { insideOf?: HTMLElement | QueryDefinition | null };
 export type QueryDefinitionBase<
@@ -61,6 +62,7 @@ export const byLabelText = createSimpleSelector('labelText');
 export const byTitle = createSimpleSelector('title');
 export const byDisplayValue = createSimpleSelector('displayValue');
 export const byTestId = createSimpleSelector('testId');
+export const bySelector = createSimpleSelector('selector');
 export const byRole = (
     matcher: ByRoleMatcher,
     options?: ByRoleOptions & InsideOptions
